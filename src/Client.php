@@ -261,10 +261,14 @@ class Client extends CApplicationComponent
                 }
             }';
         }
+		 if (!isset($options['whitelistUrls'])) {
+            $options['whitelistUrls'] = $_SERVER["HTTP_HOST"];
+        }
+
         $options = CJavaScript::encode($options);
 
         $clientScript->registerScript(
-            'sentry-javascript-init',
+            'sentry-javascript-init-raven',
             "Raven.config('{$this->jsDsn}', {$options}).install();",
             CClientScript::POS_HEAD
         );
